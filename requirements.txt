@@ -1,0 +1,15 @@
+numpy
+pandas
+torch
+torchvision
+tqdm
+networkx
+#tensorflow
+#keras
+#opencv-python
+pyyaml
+matplotlib
+pillow
+#itertools
+pathlib
+optuna
