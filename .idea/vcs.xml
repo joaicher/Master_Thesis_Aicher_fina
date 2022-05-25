@@ -2,5 +2,11 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/gym_env_pers" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/gym_example" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/gym_example_copy" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/neu/gym_example" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/neuneu/gym_example" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/rllib" vcs="Git" />
   </component>
 </project>
