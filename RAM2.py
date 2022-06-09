@@ -1,39 +1,88 @@
-from ray.rllib.agents.ppo import PPOTrainer
+from gym.spaces import Dict
+import ray
+from ray.rllib.models.tf.fcnet import FullyConnectedNetwork
+from ray.rllib.models.tf.tf_modelv2 import TFModelV2
+from ray.rllib.models.torch.torch_modelv2 import TorchModelV2
+from ray.rllib.models.torch.fcnet import FullyConnectedNetwork as TorchFC
+from ray.rllib.utils.framework import try_import_tf, try_import_torch
+from ray.rllib.utils.torch_utils import FLOAT_MIN
 
-# Configure the algorithm.
-config = {
-    # Environment (RLlib understands openAI gym registered strings).
-    "env": "Taxi-v3",
-    # Use 2 environment workers (aka "rollout workers") that parallelly
-    # collect samples from their own environment clone(s).
-    "num_workers": 2,
-    # Change this to "framework: torch", if you are using PyTorch.
-    # Also, use "framework: tf2" for tf2.x eager execution.
-    "framework": "tf",
-    # Tweak the default model provided automatically by RLlib,
-    # given the environment's observation- and action spaces.
+tf1, tf, tfv = try_import_tf()
+torch, nn = try_import_torch()
+
+import torch.nn as nn
+
+from ray.rllib.agents import ppo
+from ray.rllib.models import ModelCatalog
+from ray.rllib.models.torch.torch_modelv2 import TorchModelV2
+
+class CustomTorchModel(TorchModelV2, nn.Module):
+    """PyTorch version of above ActionMaskingModel."""
+
+    def __init__(
+        self,
+        obs_space,
+        action_space,
+        num_outputs,
+        model_config,
+        name,
+        **kwargs,
+    ):
+        orig_space = getattr(obs_space, "original_space", obs_space)
+        assert (
+                isinstance(orig_space, Dict)
+                and "action_mask" in orig_space.spaces
+                and "observations" in orig_space.spaces
+        )
+
+        TorchModelV2.__init__(
+            self, obs_space, action_space, num_outputs, model_config, name, **kwargs
+        )
+        nn.Module.__init__(self)
+
+        self.internal_model = TorchFC(
+            orig_space["observations"],
+            action_space,
+            num_outputs,
+            model_config,
+            name + "_internal",
+        )
+
+        # disable action masking --> will likely lead to invalid actions
+        self.no_masking = False
+        if "no_masking" in model_config["custom_model_config"]:
+            self.no_masking = model_config["custom_model_config"]["no_masking"]
+
+    def forward(self, input_dict, state, seq_lens):
+        # Extract the available actions tensor from the observation.
+        action_mask = input_dict["obs"]["action_mask"]
+
+        # Compute the unmasked logits.
+        logits, _ = self.internal_model({"obs": input_dict["obs"]["observations"]})
+
+        # If action masking is disabled, directly return unmasked logits
+        if self.no_masking:
+            return logits, state
+
+        # Convert action_mask into a [0.0 || -inf]-type mask.
+        inf_mask = torch.clamp(torch.log(action_mask), min=FLOAT_MIN)
+        masked_logits = logits + inf_mask
+
+        # Return masked logits.
+        return masked_logits, state
+
+    def value_function(self):
+        return self.internal_model.value_function()
+
+
+ModelCatalog.register_custom_model("my_torch_model", CustomTorchModel)
+
+ray.init()
+trainer = ppo.PPOTrainer(env="CartPole-v0", config={
+    "framework": "torch",
     "model": {
-        "fcnet_hiddens": [64, 64],
-        "fcnet_activation": "relu",
+        "custom_model": "my_torch_model",
+        # Extra kwargs to be passed to your model's c'tor.
+        "custom_model_config": {},
     },
-    # Set up a separate evaluation worker set for the
-    # `trainer.evaluate()` call after training (see below).
-    "evaluation_num_workers": 1,
-    # Only for evaluation runs, render the env.
-    "evaluation_config": {
-        "render_env": True,
-    },
-}
-
-# Create our RLlib Trainer.
-trainer = PPOTrainer(config=config)
-
-# Run it for n training iterations. A training iteration includes
-# parallel sample collection by the environment workers as well as
-# loss calculation on the collected batch and a model update.
-for _ in range(3):
-    print(trainer.train())
-
-# Evaluate the trained Trainer (and render each timestep to the shell's
-# output).
-trainer.evaluate()
+})
