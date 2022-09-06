@@ -57,12 +57,12 @@ to illustrate problem representation for [RLlib](https://rllib.io/) use cases.
 
 Clone the repo and connect into its top level directory. 
 Build the fromFile2D.cc file (adapted from the ae108-library).
+Change the pathes in fem.py, fem_euler.py and the environments according to the describtion in the parameters.py.
 
-To initialize and run the `gym` example:
+To initialize and run the trained model:
 
 ```
 pip install -r requirements.txt
-pip install -e gym-example
 
 python create_plots_for_thesis.py
 ```
