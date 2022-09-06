@@ -55,7 +55,8 @@ to illustrate problem representation for [RLlib](https://rllib.io/) use cases.
 
 ## Usage
 
-Clone the repo and connect into its top level directory.
+Clone the repo and connect into its top level directory. 
+Build the fromFile2D.cc file (adapted from the ae108-library).
 
 To initialize and run the `gym` example:
 
@@ -63,7 +64,7 @@ To initialize and run the `gym` example:
 pip install -r requirements.txt
 pip install -e gym-example
 
-python sample.py
+python create_plots_for_thesis.py
 ```
 
 To run Ray RLlib to train a policy based on this environment:
