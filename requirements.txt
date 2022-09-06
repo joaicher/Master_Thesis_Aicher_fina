@@ -6,3 +6,4 @@ networkx == 2.8.4
 torch
 matplotlib
 shlex
+shutil
