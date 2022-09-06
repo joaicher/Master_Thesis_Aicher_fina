@@ -5,6 +5,4 @@ pillow >= 8.3 # not directly required, pinned by Snyk to avoid a vulnerability
 networkx == 2.8.4
 torch
 matplotlib
-time
 shlex
-subprocess
