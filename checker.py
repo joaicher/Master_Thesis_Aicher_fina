@@ -1,3 +1,5 @@
+# this file was created to check the results for a structure that is created in line 18-29; 
+
 import gym
 import gym.spaces
 from gym.utils import seeding
