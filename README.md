@@ -22,7 +22,9 @@ What files are relevant & up to date:
 - unitCell.py: the unit cell class, contains many functions for different state representations etc. 
 
 Additional files:
-- checker.py: this file displays and computes the loss for a structure that is defined in the file; so you can create any structure and compute it's loss
+- checker.py: this file displays and computes the loss for a structure that is defined in the file; so you can create any structure (for example based on a trained model) and compute it's loss;
+- create_plots_for_thesis.py: this file loads a pre-trained model; if parameters.env_class == 0 or 4, it computes and plots some figures to evaluate the performance of the trained model
+- plotDirectionalStiffness.py: creates the plot for the directional stiffness;
 
 for the comments in the enviroments, env_03 is the best commented, since it is the most "advanced" environment
 with changing stiffness goal and termination chosen by network;
