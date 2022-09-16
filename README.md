@@ -21,6 +21,9 @@ What files are relevant & up to date:
 - custom_model.py: creates a custom model for the network, is used for action space masking
 - unitCell.py: the unit cell class, contains many functions for different state representations etc. 
 
+Additional files:
+- checker.py: this file displays and computes the loss for a structure that is defined in the file; so you can create any structure and compute it's loss
+
 for the comments in the enviroments, env_03 is the best commented, since it is the most "advanced" environment
 with changing stiffness goal and termination chosen by network;
 
