@@ -20,6 +20,7 @@ What files are relevant & up to date:
 - get_stiffness_goal.py: creates a feasible, random stiffness goal (for env_goal, env_03)
 - custom_model.py: creates a custom model for the network, is used for action space masking
 - unitCell.py: the unit cell class, contains many functions for different state representations etc. 
+- run_pretrained_model: runs a pretrained model
 
 Additional files:
 - checker.py: this file displays and computes the loss for a structure that is defined in the file; so you can create any structure (for example based on a trained model) and compute it's loss;
