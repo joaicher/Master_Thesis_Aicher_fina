@@ -1,6 +1,5 @@
 """
-this file should create the plots for the thesis
-one big part will be the investigation of the performance of the pretrained model for many stiffness inputs
+this file runs a pretrained model once
 """
 
 import gym
