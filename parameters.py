@@ -51,3 +51,4 @@ bars_remaining = 7
 infeasible_fixed_goal_bin = False
 infeasible_fixed_goal = torch.tensor([1, 0, 0, 0, 0, 0, 0, 0, 0])
 
+path_euler = "/cluster/home/jaicher/MA/ae108-legacy/build/drivers/"
