@@ -22,7 +22,7 @@ def compute_rFEM(file_del, steps_counter, worker_ID):
     if not os.path.isfile("BeamHomogenization-fromFile2D"):
         print("BeamHomogenization-fromFile2D not found in current directory")
         # create a symbolic link to the BeamHomogenization-fromFile2D executable:
-        os.symlink("/cluster/home/jaicher/MA/ae108-legacy/build/drivers/beamHomogenization/BeamHomogenization-fromFile2D", "BeamHomogenization-fromFile2D")
+        os.symlink(parameters.path_euler + "beamHomogenization/BeamHomogenization-fromFile2D", "BeamHomogenization-fromFile2D")
     if parameters.time_measure:
         path_rel = '../ae108-legacy/build/drivers/beamHomogenization/'
 
