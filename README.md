@@ -48,7 +48,11 @@ pip install -r requirements.txt
 ```
 
 To run Ray RLlib to train a policy based on this environment:
-
+- change the pathes in parameters.py if you run it on your laptop
+- please try to run the BeamHomogenization-fromFile2D on your local machine first;
+- if your cmd for executing the BeamHomogenization-fromFile2D is different from 'docker exec -w /mnt/io/build/drivers/beamHomogenization/ ae108-legacy-dev-1 ' \
+          './BeamHomogenization-fromFile2D', please change it in the fem.py
+          
 ```
 python train.py
 ```
