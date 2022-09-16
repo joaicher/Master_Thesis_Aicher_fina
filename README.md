@@ -10,11 +10,11 @@ What files are relevant & up to date:
   - the environment for algorithm; 
   - most of the relevant code is in those files, i.e. the step, state, reward definition, termination criterion etc.
 - parameters.env_class = 
-    # 0: env_goal - changing stiffness target, threshold final state;
-    # 1: threshold approach;
-    # 2: derivative approach;
-    # 3: fixed goal but final state chosen by network - not 3 && custom model!!;
-    # 4: mix from 0 and 3: changing stiffness target with final state chosen by network
+    - 0: env_goal - changing stiffness target, threshold final state;
+    - 1: threshold approach;
+    - 2: derivative approach;
+    - 3: fixed goal but final state chosen by network - not 3 && custom model!!;
+    - 4: mix from 0 and 3: changing stiffness target with final state chosen by network
 - fem.py: runs the BeamHomogenization-fromFile2D on the local laptop, in Docker container; pathes needs to be adapted for different computer
 - fem_euler.py: runs the BeamHomogenization-fromFile2D on euler, where the BeamHomogenization-fromFile2D is in the same directory as the other .py files
 - get_stiffness_goal.py: creates a feasible, random stiffness goal (for env_goal, env_03)
@@ -32,39 +32,13 @@ Pathes must be adapted in the fem_euler.py file.
 If in doubt, use ctrl+f to search for "jaicher" in the code and replace it with your username.
 The tensorboard output will be written to home/username/ray_results/
 
-
-
-the other files are not that relevant and sometimes not up to date; be especially careful when using them. 
-
-
-
-
-
-
-
-
-
-
-
-
-
-# gym_example
-
-Example implementation of an [OpenAI Gym](http://gym.openai.com/) environment,
-to illustrate problem representation for [RLlib](https://rllib.io/) use cases.
-
 ## Usage
 
-Clone the repo and connect into its top level directory. 
-Build the fromFile2D.cc file (adapted from the ae108-library).
-Change the pathes in fem.py, fem_euler.py and the environments according to the describtion in the parameters.py.
+Clone the repo and connect into its top level directory.
 
-To initialize and run the trained model:
 
 ```
 pip install -r requirements.txt
-
-python create_plots_for_thesis.py
 ```
 
 To run Ray RLlib to train a policy based on this environment:
@@ -77,10 +51,6 @@ python train.py
 ## Kudos
 
 h/t:
-
-  - <https://github.com/DerwenAI/gym_trivial>
-  - <https://github.com/DerwenAI/gym_projectile>
-  - <https://github.com/apoddar573/Tic-Tac-Toe-Gym_Environment/>
   - <https://medium.com/@apoddar573/making-your-own-custom-environment-in-gym-c3b65ff8cdaa>
   - <https://github.com/openai/gym/blob/master/docs/creating-environments.md>
   - <https://stackoverflow.com/questions/45068568/how-to-create-a-new-gym-environment-in-openai>
