@@ -73,8 +73,7 @@ class Own_Env_v0(gym.Env):
             if parameters.euler:
                 self.unitcell.save('mesh' + self.worker_ID)
             else:
-                self.unitcell.save('/Users/Johannes/Library/CloudStorage/OneDrive-Persönlich/Dokumente/ETH'
-                                   '-Studium-Gesamt/MasterThesis/ae108-legacy/build/drivers/beamHomogenization/mesh' + self.worker_ID)
+                self.unitcell.save(parameters.path_laptop + '/beamHomogenization/mesh' + self.worker_ID)
             self.stiffness_fem, _ = fem.compute_rFEM(100, steps_counter=self.overall_steps,
                                                      worker_ID=self.worker_ID)
             self.stiffness_fem = self.stiffness_fem / LA.vector_norm(self.stiffness_fem)
