@@ -52,3 +52,8 @@ infeasible_fixed_goal_bin = False
 infeasible_fixed_goal = torch.tensor([1, 0, 0, 0, 0, 0, 0, 0, 0])
 
 path_euler = "/cluster/home/jaicher/MA/ae108-legacy/build/drivers/"
+
+# this is the path to the beamHomogenization directory, that should consist the BeamHomogenization-fromFile2D executable
+path_laptop = '/Users/Johannes/Library/CloudStorage/OneDrive-Persönlich/Dokumente/ETH-Studium-Gesamt/MasterThesis' \
+              '/ae108-legacy/build/drivers/ '
+

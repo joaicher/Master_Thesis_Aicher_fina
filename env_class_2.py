@@ -171,8 +171,7 @@ class Own_Env_v0(gym.Env):
                 if parameters.euler:
                     self.unitcell.save('mesh' + self.worker_ID)
                 else:
-                    self.unitcell.save('/Users/Johannes/Library/CloudStorage/OneDrive-Persönlich/Dokumente/ETH'
-                                       '-Studium-Gesamt/MasterThesis/ae108-legacy/build/drivers/beamHomogenization/mesh' + self.worker_ID)
+                    self.unitcell.save(parameters.path_laptop + '/beamHomogenization/mesh' + self.worker_ID)
 
                 """compute stiffness"""
                 self.stiffness_fem, _ = fem.compute_rFEM(100, steps_counter=self.overall_steps, worker_ID=self.worker_ID)
@@ -266,60 +265,5 @@ class Own_Env_v0(gym.Env):
         """
         pass
 
-
-
-""""
-        # 
-        # if self.done:
-        #     # code should never reach this point
-        #     print("EPISODE DONE!!!")
-        # 
-        # elif self.count == self.MAX_STEPS:
-        #     self.done = True
-        # 
-        # else:
-        #     assert self.action_space.contains(action)
-        #     self.count += 1
-        #     self.overall_steps += 1
-        # 
-        #     # reward function: reward is rew_loss if rew_loss of next state is less than rew_loss of current state, else done=True
-        #     define distance of current state"""
-        #     current_step_fem, _ = fem.compute_rFEM(100, steps_counter=self.overall_steps, worker_ID=self.worker_ID)
-        #     current_step_fem = current_step_fem/LA.vector_norm(current_step_fem)
-        #     curr_rew_loss = compute_loss(current_step_fem, self.stiffness_goal)
-        #
-        #     """perform action"""
-        #     try:
-        #         self.unitcell.bar_removed(action, parameters.unitcell_size)
-        #         self.state = self.unitcell.transform_to_bars(parameters.unitcell_size)
-        #
-        #         if parameters.euler:
-        #             self.unitcell.save('mesh' + self.worker_ID)
-        #         else:
-        #             self.unitcell.save('/Users/Johannes/Library/CloudStorage/OneDrive-Persönlich/Dokumente/ETH'
-        #                                '-Studium-Gesamt/MasterThesis/ae108-legacy/build/drivers/beamHomogenization/mesh' + self.worker_ID)
-        #
-        #         """compute stiffness"""
-        #         self.stiffness_fem, _ = fem.compute_rFEM(100, steps_counter=self.overall_steps, worker_ID=self.worker_ID)
-        #         self.stiffness_fem = self.stiffness_fem / LA.vector_norm(self.stiffness_fem)
-        #     except:
-        #         self.reward = torch.tensor(-2)
-        #         self.infeasible_action += 1
-        #         self.info["infeasible_action"] = self.infeasible_action
-        #
-        #     #reward definition: reward is rew_loss if rew_loss of next state is less than rew_loss of current state, else done=True
-        #     if curr_rew_loss > compute_loss(self.stiffness_fem, self.stiffness_goal) and self.count > 4:
-        #         self.reward = - compute_loss(self.stiffness_fem, self.stiffness_goal)
-        #         self.done = True
-        #     else:
-        #         self.reward = - compute_loss(self.stiffness_fem, self.stiffness_goal)
-        #
-        #     self.info["dist"] = (compute_loss(self.stiffness_fem, self.stiffness_goal)).item()
-        #     self.info["overallsteps"] = self.overall_steps
-        #
-        # try:
-        #     assert self.observation_space.contains(self.state)
-        # except AssertionError:
-        #     print("INVALID STATE", self.state)
 
 

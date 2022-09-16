@@ -201,8 +201,7 @@ class Own_Env_v0(gym.Env):
                     if parameters.euler:
                         self.unitcell.save('mesh' + self.worker_ID)
                     else:
-                        self.unitcell.save('/Users/Johannes/Library/CloudStorage/OneDrive-Persönlich/Dokumente/ETH'
-                                           '-Studium-Gesamt/MasterThesis/ae108-legacy/build/drivers/beamHomogenization/mesh' + self.worker_ID)
+                        self.unitcell.save(parameters.path_laptop + '/beamHomogenization/mesh' + self.worker_ID)
 
                     # compute reward
                     if parameters.stiffness_fem:
@@ -304,38 +303,3 @@ class Own_Env_v0(gym.Env):
         pass
 
 
-"""
-                try:
-                    self.unitcell.bar_removed(action, parameters.unitcell_size)
-                    self.state = self.unitcell.transform_to_bars(parameters.unitcell_size)
-
-                    # if action[0] == 1:
-                    #     self.done = True
-
-                    if parameters.euler:
-                        self.unitcell.save('mesh' + self.worker_ID)
-                    else:
-                        self.unitcell.save('/Users/Johannes/Library/CloudStorage/OneDrive-Persönlich/Dokumente/ETH'
-                                           '-Studium-Gesamt/MasterThesis/ae108-legacy/build/drivers/beamHomogenization/mesh' + self.worker_ID)
-
-                    """  # compute reward
-"""
-                    if parameters.stiffness_fem:
-                        start_time_fem = time.time()
-                        self.stiffness_fem, _ = fem.compute_rFEM(100, steps_counter=self.overall_steps, worker_ID=self.worker_ID)         #worker_ID=self.worker_ID
-                        end_time_fem = time.time()
-                        if parameters.time_measure:
-                            print("overall fem time", end_time_fem-start_time_fem)
-                        self.stiffness_fem = self.stiffness_fem / LA.vector_norm(self.stiffness_fem)
-                    else:
-                        self.stiffness_fem[0] = self.unitcell.hor_count() / self.unitcell.count_edges()
-                    self.reward = - compute_loss(self.stiffness_fem, self.stiffness_goal)
-
-                    self.info["dist"] = (compute_loss(self.stiffness_fem, self.stiffness_goal)).item()
-                    self.info["overallsteps"] = self.overall_steps
-
-                except:
-                    self.reward = torch.tensor(-2)
-                    self.infeasible_action += 1
-                    self.info["infeasible_action"] = self.infeasible_action
-"""

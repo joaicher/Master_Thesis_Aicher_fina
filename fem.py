@@ -16,20 +16,17 @@ def compute_rFEM(file_del, steps_counter, worker_ID):
           './BeamHomogenization-fromFile2D --name=' + worker_ID
 
     # check if tangent matrix exists, delete it every xy iterations to keep read in time io
-    path_rel_tangent = "/Users/Johannes/Library/CloudStorage/OneDrive-Persönlich/Dokumente/ETH-Studium-Gesamt" \
-                       "/MasterThesis/ae108-legacy/build/drivers/beamHomogenization/tangent_matrix" + worker_ID
+    path_rel_tangent = parameters.path_laptop + '/beamHomogenization/tangent_matrix' + worker_ID
     file_rem_time = time.time()
     if os.path.isfile(path_rel_tangent):
         pass
         #os.remove(path_rel_tangent)
         #print("tangent removed")
-    fp = open('/Users/Johannes/Library/CloudStorage/OneDrive-Persönlich/Dokumente/ETH-Studium-Gesamt/MasterThesis'
-              '/ae108-legacy/build/drivers/beamHomogenization/tangent_matrix' + worker_ID, 'w')
+    fp = open(parameters.path_laptop + '/beamHomogenization/tangent_matrix' + worker_ID, 'w')
     fp.close()
 
-    filesize_old = os.path.getsize("/Users/Johannes/Library/CloudStorage/OneDrive-Persönlich/Dokumente/ETH-Studium"
-                                   "-Gesamt/MasterThesis/ae108-legacy/build/drivers/beamHomogenization/tangent_matrix"
-                                   "" + worker_ID)
+    filesize_old = os.path.getsize(parameters.path_laptop + '/beamHomogenization/tangent_matrix'
+                                   '' + worker_ID)
 
 
     # run FEM
@@ -41,8 +38,7 @@ def compute_rFEM(file_del, steps_counter, worker_ID):
     if parameters.time_measure: print("runtime", run_time_end-run_time)
     time.sleep(0.05)
     run_check_time = time.time()
-    filesize = os.path.getsize("/Users/Johannes/Library/CloudStorage/OneDrive-Persönlich/Dokumente/ETH-Studium"
-                               "-Gesamt/MasterThesis/ae108-legacy/build/drivers/beamHomogenization/tangent_matrix" +
+    filesize = os.path.getsize(parameters.path_laptop + '/beamHomogenization/tangent_matrix' +
                                worker_ID)
 
     for i in range(10):
@@ -55,8 +51,7 @@ def compute_rFEM(file_del, steps_counter, worker_ID):
         else:
             time.sleep(0.25)
             filesize = os.path.getsize(
-                "/Users/Johannes/Library/CloudStorage/OneDrive-Persönlich/Dokumente/ETH-Studium-Gesamt/MasterThesis"
-                "/ae108-legacy/build/drivers/beamHomogenization/tangent_matrix" + worker_ID)
+                parameters.path_laptop + '/beamHomogenization/tangent_matrix' + worker_ID)
     print("FEM failed")
     FEM_failed = 1
     return torch.rand(9), FEM_failed
